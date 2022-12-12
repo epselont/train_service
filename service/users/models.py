@@ -12,7 +12,13 @@ MAX_LENGTH_ERR_MSG = f'Введите не более {MAX_LENGTH} символ�
 class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('username', 'first_name', 'last_name', 'password')
+    REQUIRED_FIELDS = (
+        'username',
+        'first_name',
+        'patronymic',
+        'last_name',
+        'position',
+        'password')
 
     ROLES = (
         ('ADMIN', 'Администратор'),
@@ -52,6 +58,7 @@ class User(AbstractUser):
         ]
     )
 
+# TODO продумать валидацию для ФИО(с заглавной и тд)
     first_name = models.CharField(
         verbose_name='Имя пользователя',
         max_length=MAX_LENGTH,
@@ -63,12 +70,33 @@ class User(AbstractUser):
         ]
     )
 
-    last_name = models.CharField(
-        verbose_name='Фамилия Пользователя',
+    patronymic = models.CharField(
+        verbose_name='Отчество пользователя',
         max_length=MAX_LENGTH,
         validators=[
             MIN_LENGTH,
             MIN_LENGTH_ERR_MSG
+        ]
+    )
+    last_name = models.CharField(
+        verbose_name='Фамилия Пользователя',
+        max_length=MAX_LENGTH,
+        validators=[
+            MinLengthValidator(
+                MIN_LENGTH,
+                MIN_LENGTH_ERR_MSG
+            )
+        ]
+    )
+
+    position = models.CharField(
+        verbose_name='Должность',
+        max_length=MAX_LENGTH,
+        validators=[
+            MinLengthValidator(
+                MIN_LENGTH,
+                MIN_LENGTH_ERR_MSG
+            )
         ]
     )
 
@@ -86,4 +114,4 @@ class User(AbstractUser):
         return self.role == 'USER'
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.last_name} {self.first_name[:0]}.{self.patronymic[:0]}.'
