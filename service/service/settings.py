@@ -1,6 +1,10 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-az)8jo^78k9$0ye@m&(-jc4=%*xr@jjb4&d!@(lzo7a@6ji#w$'
@@ -18,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djoser',
-    'users',
+    'users.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +62,7 @@ DATABASES = {
             'DB_ENGINE', default='django.db.backends.postgresql'
         ),
         'NAME': os.getenv('DB_NAME', default='service_train_db'),
-        'USER': os.getenv('POSTGRES_USER', default='admin-service'),
+        'USER': os.getenv('POSTGRES_USER', default='postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT', default='5432')

@@ -74,8 +74,10 @@ class User(AbstractUser):
         verbose_name='Отчество пользователя',
         max_length=MAX_LENGTH,
         validators=[
-            MIN_LENGTH,
-            MIN_LENGTH_ERR_MSG
+            MinLengthValidator(
+                MIN_LENGTH,
+                MIN_LENGTH_ERR_MSG
+            )
         ]
     )
     last_name = models.CharField(
@@ -114,4 +116,4 @@ class User(AbstractUser):
         return self.role == 'USER'
 
     def __str__(self):
-        return f'{self.last_name} {self.first_name[:0]}.{self.patronymic[:0]}.'
+        return f'{self.last_name} {self.first_name[:1]}.{self.patronymic[:1]}.'
