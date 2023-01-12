@@ -117,3 +117,10 @@ class User(AbstractUser):
 
     def __str__(self):
         return f'{self.last_name} {self.first_name[:1]}.{self.patronymic[:1]}.'
+
+    def save(self, *args, **kwargs):
+        self.first_name = self.first_name.capitalize()
+        self.last_name = self.last_name.capitalize()
+        self.patronymic = self.patronymic.capitalize()
+        self.position = self.position.capitalize()
+        super().save(*args, **kwargs)
