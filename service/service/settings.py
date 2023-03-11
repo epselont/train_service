@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djoser',
     'users.apps.UserConfig',
+    'repairs.apps.RepairsConfig',
 ]
 
 MIDDLEWARE = [

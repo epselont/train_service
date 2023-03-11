@@ -33,11 +33,12 @@ class UserModelTest(TestCase):
 
     def test_capitalize_names_and_positon(self):
         """Проверяем, что при сохранении в БД ФИО с заглавной буквы"""
+        user = UserModelTest.user
         field_expected = {
-            self.user.first_name: 'Тест',
-            self.user.patronymic: 'Тестович',
-            self.user.last_name: 'Тестов',
-            self.user.position: 'Инженер',
+            user.first_name: 'Тест',
+            user.patronymic: 'Тестович',
+            user.last_name: 'Тестов',
+            user.position: 'Инженер',
         }
         for value, expected in field_expected.items():
             with self.subTest(value=value):
